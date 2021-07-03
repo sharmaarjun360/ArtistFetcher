@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/cell_track_container"
+    >
+
+    <ImageView
+        android:id="@+id/cell_track_artwork"
+        android:layout_width="@dimen/image_width"
+        android:layout_height="@dimen/image_height"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/cell_track_artist_name"
+        android:layout_width="0dp"
+        android:layout_marginLeft="@dimen/item_margin_left"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:layout_marginTop="@dimen/margin_between_cells"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@id/cell_track_artwork"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/cell_track_name"
+        android:layout_width="0dp"
+        android:layout_marginLeft="@dimen/item_margin_left"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:layout_marginTop="@dimen/margin_between_cells"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@id/cell_track_artwork"
+        app:layout_constraintTop_toBottomOf="@id/cell_track_artist_name" />
+
+    <TextView
+        android:id="@+id/cell_track_release_date"
+        android:layout_width="0dp"
+        android:layout_marginLeft="@dimen/item_margin_left"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:layout_marginTop="@dimen/margin_between_cells"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@id/cell_track_artwork"
+        app:layout_constraintTop_toBottomOf="@id/cell_track_name" />
+
+    <TextView
+        android:id="@+id/cell_track_primary_genre_name"
+        android:layout_width="0dp"
+        android:layout_marginLeft="@dimen/item_margin_left"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:layout_marginTop="@dimen/margin_between_cells"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@id/cell_track_artwork"
+        app:layout_constraintTop_toBottomOf="@+id/cell_track_release_date" />
+    <TextView
+        android:id="@+id/cell_track_price"
+        android:layout_width="0dp"
+        android:layout_marginLeft="@dimen/item_margin_left"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:layout_marginTop="@dimen/margin_between_cells"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@id/cell_track_artwork"
+        app:layout_constraintTop_toBottomOf="@id/cell_track_primary_genre_name" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

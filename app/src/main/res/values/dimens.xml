@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="width">400dp</dimen>
+    <dimen name="image_width">100dp</dimen>
+    <dimen name="image_height">100dp</dimen>
+    <dimen name="margin_between_cells">4dp</dimen>
+    <dimen name="margin_details">10dp</dimen>
+    <dimen name="item_margin_left">10dp</dimen>
+    <dimen name="margin_top">0dp</dimen>
+    <dimen name="details_text_size">20sp</dimen>
+</resources>

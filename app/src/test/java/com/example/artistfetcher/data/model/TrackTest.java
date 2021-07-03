@@ -18,10 +18,11 @@ public class TrackTest {
         //first fail
         assertNotNull(track);
         //second fail
-        assertNotNull(track.artistName);
-        assertNotNull(track.trackName);
-        assertTrue(track.trackPrice>=0);
-        assertNotNull(track.releaseDate);
-        assertNotNull(track.primaryGenreName);
+        assertNotNull(track.getArtistName());
+        assertNotNull(track.getTrackName());
+        assertTrue(track.getTrackPrice()>=0);
+        assertNotNull(track.getReleaseDate());
+        assertNotNull(track.getPrimaryGenreName());
+        assertNotNull(track.getArtworkUrl100());
     }
 }

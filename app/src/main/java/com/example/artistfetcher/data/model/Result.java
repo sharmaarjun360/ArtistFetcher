@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Created by arjunsharma on 01,July,2021
  */
-class Result {
+public class Result {
 
     private static final String RESULT_COUNT = "resultCount";
     private static final String RESULTS = "results";
