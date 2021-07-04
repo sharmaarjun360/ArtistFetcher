@@ -9,7 +9,11 @@ android {
         google()
         mavenCentral()
     }
-
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
     defaultConfig {
         applicationId "com.example.artistfetcher"
         minSdkVersion 23
@@ -45,7 +49,7 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     //for Instrumentation Testing
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-
+    testImplementation 'org.robolectric:robolectric:4.4'
     //for parsing
     implementation 'com.google.code.gson:gson:2.8.7'
     //for network retrofit

@@ -17,6 +17,8 @@ import com.example.artistfetcher.data.model.Track;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.lang.reflect.Field;
+
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
@@ -85,7 +87,7 @@ class TrackCellViewHolder extends RecyclerView.ViewHolder
     private final TextView releaseDate;
     private final TextView primaryGenreName;
     private final ImageView artWorkURL100;
-//    private final String artistViewUrl;
+    //    private final String artistViewUrl;
 //    private final String currency;
 
     public TrackCellViewHolder(View itemView)
@@ -105,11 +107,29 @@ class TrackCellViewHolder extends RecyclerView.ViewHolder
 
     public void populateTrackData(Track track){
         artistName.setText("Artist Name: "+ track.getArtistName());
-        trackName.setText("Track Name: "+track.getTrackName());
-        trackPrice.setText("Price: $ "+track.getTrackPrice()+"");
-        releaseDate.setText("Release Date: "+ Utils.getSimpleDate(Constants.INPUT_DATE_FORMAT,Constants.OUTPUT_DATE_FORMAT,track.getReleaseDate()));
+        trackName.setText("Track Name: "+ track.getTrackName());
+        trackPrice.setText("Price: $ "+ track.getTrackPrice()+"");
+        releaseDate.setText("Release Date: "+ Utils.getSimpleDate(Constants.INPUT_DATE_FORMAT,Constants.OUTPUT_DATE_FORMAT, track.getReleaseDate()));
         primaryGenreName.setText("Genre: "+ track.getPrimaryGenreName());
-        Utils.loadImage((Activity)context, artWorkURL100,track.getArtworkUrl100());
+        Utils.loadImage((Activity)context, artWorkURL100, track.getArtworkUrl100());
+    }
+
+    private void isValid(Track track){
+
+        track.getClass().getFields();
+        for (Field field: track.getClass().getFields()){
+            Object object = new Object();
+
+            try {
+                if(field.get(object)==null){
+
+                }
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+
+        }
+
     }
 
     private void addActions() {
