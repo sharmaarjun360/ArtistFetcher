@@ -46,24 +46,26 @@ dependencies {
     implementation 'org.jetbrains:annotations:15.0'
     //for Unit Testing
     testImplementation 'junit:junit:4.+'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    //for Instrumentation Testing
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     testImplementation 'org.robolectric:robolectric:4.4'
+    //for Instrumentation Testing
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.1.0'
+    implementation 'androidx.test.espresso.idling:idling-concurrent:3.1.0'
+
+
     //for parsing
     implementation 'com.google.code.gson:gson:2.8.7'
     //for network retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
-    //recycle view
+    //for recycle view
     implementation "androidx.recyclerview:recyclerview:1.1.0"
     // For control over item selection of both touch and mouse driven selection
 //    implementation "androidx.recyclerview:recyclerview-selection:1.1.0-rc01"
     //for image
-
     implementation 'com.github.bumptech.glide:glide:4.12.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
-
     //For firebase analytics
     // add the Firebase SDK for Google Analytics
 //    implementation 'com.google.firebase:firebase-analytics:17.2.2'

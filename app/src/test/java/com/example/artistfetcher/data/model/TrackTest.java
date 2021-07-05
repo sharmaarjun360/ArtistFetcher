@@ -1,5 +1,7 @@
 package com.example.artistfetcher.data.model;
 
+import com.example.artistfetcher.data.local.MockArtistData;
+
 import org.junit.Test;
 
 import java.io.InputStream;
@@ -14,7 +16,8 @@ public class TrackTest {
     @Test
     public void trackReadFromStream() {
         InputStream stream = TrackTest.class.getResourceAsStream("/sample/1.txt");
-        Track track = Track.trackReadFromStream(stream);
+        MockArtistData mockArtistData = MockArtistData.getInstance(TrackTest.class);
+        Track track = mockArtistData.readTrackFromStream(stream);
         //first fail
         assertNotNull(track);
         //second fail

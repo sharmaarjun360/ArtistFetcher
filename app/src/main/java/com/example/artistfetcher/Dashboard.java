@@ -14,6 +14,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.View;
 
 import android.widget.FrameLayout;
@@ -24,6 +25,8 @@ import com.example.artistfetcher.Constants.Constants;
 import com.example.artistfetcher.Fragments.FragmentArtistDetails;
 import com.example.artistfetcher.Interface.CallbackTrackAdapter;
 import com.example.artistfetcher.Interface.InterfaceEndPointITunes;
+import com.example.artistfetcher.Network.ArtistDataRequester;
+import com.example.artistfetcher.Utils.EspressoIdlingResource;
 import com.example.artistfetcher.data.model.Result;
 import com.example.artistfetcher.data.model.Track;
 
@@ -95,25 +98,22 @@ public class Dashboard extends AppCompatActivity implements CallbackTrackAdapter
     }
 
     private void initNetworkService() {
-        // TODO: 14/06/20 check for internet permission and if not request it
         //created retrofit instance
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
-        //promised objects with which heritage will come
-        interfaceEndPointITunes = retrofit.create(InterfaceEndPointITunes.class);
+        interfaceEndPointITunes = ArtistDataRequester.getClient();
     }
 
     private void getArtistDetails(String artistName){
-        progressBar.setVisibility(View.VISIBLE);
 
+        progressBar.setVisibility(View.VISIBLE);
+        EspressoIdlingResource.increment();
         interfaceEndPointITunes.getListOfAvailableArtistData(artistName).enqueue(new Callback<Result>() {
             @Override
             public void onResponse(Call<Result> call, Response<Result> response) {
                 if(!response.isSuccessful()){
-
+                    Log.e(TAG, response.toString());
                     response.message();
                 }
                 if(response.body() != null){
-
                     refreshAdapter((Result) response.body());
                 }
             }
@@ -135,6 +135,7 @@ public class Dashboard extends AppCompatActivity implements CallbackTrackAdapter
                 trackAdapter.setResult(result);
                 trackAdapter.notifyDataSetChanged();
                 progressBar.setVisibility(View.GONE);
+                EspressoIdlingResource.decrement();
 
             }
         });
@@ -147,6 +148,7 @@ public class Dashboard extends AppCompatActivity implements CallbackTrackAdapter
 
     @Override
     public void onRecycleViewCreated() {
+        EspressoIdlingResource.decrement();
         progressBar.setVisibility(View.GONE);
     }
 }

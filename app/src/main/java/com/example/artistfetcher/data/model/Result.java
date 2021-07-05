@@ -34,19 +34,19 @@ public class Result {
         this.resultCount = resultCount;
         this.results = results;
     }
-
-    public static Result fetchResultData(InputStream stream){
-        /*first fail*/
-//        return null;
-        int resultCount = 0;
-        List<Track> results = null;
-//        /*second fail*/
-//        return new Result(resultCount, results);
-        Gson gson = new Gson();
-        Result result  = gson.fromJson(new InputStreamReader(stream), Result.class);
-        resultCount = result.getResultCount();
-        results = result.getResults();
-        return new Result(resultCount,results);
-    }
+//Moved to MockResultData
+//    public static Result fetchResultData(InputStream stream){
+//        /*first fail*/
+////        return null;
+//        int resultCount = 0;
+//        List<Track> results = null;
+////        /*second fail*/
+////        return new Result(resultCount, results);
+//        Gson gson = new Gson();
+//        Result result  = gson.fromJson(new InputStreamReader(stream), Result.class);
+//        resultCount = result.getResultCount();
+//        results = result.getResults();
+//        return new Result(resultCount,results);
+//    }
 
 }

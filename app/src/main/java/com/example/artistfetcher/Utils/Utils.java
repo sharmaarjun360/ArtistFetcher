@@ -1,6 +1,8 @@
 package com.example.artistfetcher.Utils;
 
 import android.app.Activity;
+import android.content.res.AssetFileDescriptor;
+import android.content.res.AssetManager;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -15,6 +17,7 @@ import java.util.Date;
  */
 public class Utils {
     //crete this method into your Utils class and call this method wherever you want to use.
+
 
     public static void loadImage(final Activity context, ImageView imageView, String url) {
         if (context == null || context.isDestroyed()) return;

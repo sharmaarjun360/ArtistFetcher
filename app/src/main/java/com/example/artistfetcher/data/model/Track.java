@@ -58,31 +58,31 @@ public class Track {
         this.primaryGenreName = primaryGenreName;
         this.artworkUrl100 = artworkUrl100;
     }
-
-    public static Track trackReadFromStream(InputStream stream){
-        /*first fail*/
-//        return null;
-        String artistName = null;
-        String trackName = null;
-        double trackPrice = -1.0;
-        String releaseDate = null;
-        String primaryGenreName = null;
-        String artistWork = null;
-
-        /* second fail */
-//        return new Track(artistName, trackName, trackPrice, releaseDate, primaryGenreName);
-
-        Gson gson = new Gson();
-        Result result  = gson.fromJson(new InputStreamReader(stream), Result.class);
-        artistName = result.getResults().get(0).artistName;
-        trackName = result.getResults().get(0).trackName;
-        trackPrice = result.getResults().get(0).trackPrice;
-        releaseDate = result.getResults().get(0).releaseDate;
-        primaryGenreName = result.getResults().get(0).primaryGenreName;
-        artistWork = result.getResults().get(0).artworkUrl100;
-
-        return new Track(artistName, trackName, trackPrice, releaseDate, primaryGenreName,artistWork);
-    }
+//Moved to MockArtistData
+//    public static Track trackReadFromStream(InputStream stream){
+//        /*first fail*/
+////        return null;
+//        String artistName = null;
+//        String trackName = null;
+//        double trackPrice = -1.0;
+//        String releaseDate = null;
+//        String primaryGenreName = null;
+//        String artistWork = null;
+//
+//        /* second fail */
+////        return new Track(artistName, trackName, trackPrice, releaseDate, primaryGenreName);
+//
+//        Gson gson = new Gson();
+//        Result result  = gson.fromJson(new InputStreamReader(stream), Result.class);
+//        artistName = result.getResults().get(0).artistName;
+//        trackName = result.getResults().get(0).trackName;
+//        trackPrice = result.getResults().get(0).trackPrice;
+//        releaseDate = result.getResults().get(0).releaseDate;
+//        primaryGenreName = result.getResults().get(0).primaryGenreName;
+//        artistWork = result.getResults().get(0).artworkUrl100;
+//
+//        return new Track(artistName, trackName, trackPrice, releaseDate, primaryGenreName,artistWork);
+//    }
 
 
 
