@@ -42,6 +42,7 @@ public class FakeInterceptor implements Interceptor {
             // Parse the Query String.
             final String[] parsedQuery = query.split("=");
 
+
             //# alternatively we can just use GSON to parse and make MOCK data
 //            Result result = MockResultData.fetchMockedResultData(getStream());
 //            Gson gson = new Gson();

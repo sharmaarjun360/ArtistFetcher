@@ -1,8 +1,10 @@
 package com.example.artistfetcher;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
+import android.util.Log;
 import android.view.View;
 
 import com.example.artistfetcher.Adapter.TrackAdapter;
@@ -22,6 +24,7 @@ import org.junit.Test;
 
 import java.io.InputStream;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 import javax.security.auth.callback.Callback;
 
@@ -34,6 +37,7 @@ import androidx.test.espresso.NoMatchingViewException;
 import androidx.test.espresso.UiController;
 import androidx.test.espresso.ViewAction;
 import androidx.test.espresso.base.IdlingResourceRegistry;
+import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.platform.app.InstrumentationRegistry;
 import static androidx.test.espresso.Espresso.onView;
@@ -50,7 +54,10 @@ import static androidx.test.espresso.matcher.ViewMatchers.withEffectiveVisibilit
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.contrib.RecyclerViewActions.*;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static com.example.artistfetcher.test.RecyclerViewItemCountAssertion.withItemCount;
 import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.greaterThan;
+import static org.hamcrest.Matchers.lessThan;
 import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.*;
 
@@ -59,12 +66,14 @@ import static org.junit.Assert.*;
  */
 public class DashboardTest {
 
-
+    /** the Activity of the Target application */
+    private Dashboard mActivity;
+    private int resId = R.id.recycle_view_list_track;
+    private RecyclerView mRecyclerView;
+    private int itemCount = 0;
+    private final int LIST_ITEM_IN_TEST = 2;
     private final Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-
-    @Rule public ActivityScenarioRule<Dashboard> rule = new ActivityScenarioRule<>(Dashboard.class);
-
-    private final int LIST_ITEM_IN_TEST = 0;
+    @Rule public ActivityScenarioRule<Dashboard> rule = new ActivityScenarioRule<Dashboard>(Dashboard.class);
 
     @Before
     public void registerIdlingResource(){
@@ -82,7 +91,7 @@ public class DashboardTest {
     @Test public void A002_testComponents() {
         ActivityScenario.launch(Dashboard.class);
         ArtistRobot artistRobot = new ArtistRobot();
-        artistRobot.checkIsAttached(R.id.search_view,R.id.progressBar,R.id.recycle_view_list_track);
+        artistRobot.checkIsAttached(R.id.search_view,R.id.progressBar,resId);
         if(isTablet(appContext)){ //checking for additional components when in large screen mode
             onView(withId(R.id.fragmentContainer)).check(matches(not(doesNotExist())));
         }else{
@@ -102,35 +111,50 @@ public class DashboardTest {
     @Test public void A004_testRecycleViewComponent() {
 
         InputStream stream = getInputStreamFromAssets("1.txt");
-        //type a
-
-        //index 02: Barack Obama
-        //index 06: Quentin Tarantino
         List<Track> tracks =  MockArtistData.readAllTracksFromStream(stream);
         Track track = tracks.get(LIST_ITEM_IN_TEST);
+        //type a, index 02: Barack Obama, index 06: Quentin Tarantino
         onView(withId(R.id.search_view)).perform(typeSearchViewText("a"));
-        onView(withId(R.id.recycle_view_list_track))
+        onView(withId(resId))
                 .check(matches(not(doesNotExist())))
                 .check(matches(isCompletelyDisplayed()))
                 .check(matches(not(isSelected())))
                 .perform(actionOnItemAtPosition(LIST_ITEM_IN_TEST,click()));
 
+        onView(withId(resId)).check(withItemCount(50));
+        onView(withId(resId)).check(withItemCount(greaterThan(0)));
+        onView(withId(resId)).check(withItemCount(lessThan(51)));
+
         //type a
-        //index 03: Barack Obama
-        //index 07: Quentin Tarantino
+        //index 02: Barack Obama
+        //index 06: Quentin Tarantino
 
-//        onView(withRecyclerView(R.id.recycle_view_list_track).atPosition(LIST_ITEM_IN_TEST))
-//                .check(matches(hasDescendant(withText(track.getArtistName()))));
+        /* obtaining the Activity from the ActivityTestRule */
+        this.mActivity = getActivity(rule);
+        /* obtaining handles to the Ui of the Activity */
+        this.mRecyclerView = this.mActivity.findViewById(this.resId);
+        this.itemCount = this.mRecyclerView.getAdapter().getItemCount();
 
-//        RecyclerViewInteraction.<Track>onRecyclerView(withId(R.id.recycle_view_list_track))
-//                .withItems(tracks)
-//                .check(new RecyclerViewInteraction.ItemViewAssertion<Track>() {
-//                    @Override
-//                    public void check(Track item, View view, NoMatchingViewException e) {
-//                        matches(hasDescendant(withText(item.getArtistName())))
-//                                .check(view, e);
-//                    }
-//                });
+        if(this.itemCount > 0) {
+            for(int i=0; i < this.itemCount; i++) {
+                /* clicking the item */
+                onView(withId(this.resId))
+                        .perform(RecyclerViewActions.actionOnItemAtPosition(i, click()));
+
+                /* check if the ViewHolder is being displayed */
+                onView(new RecyclerViewMatcher(this.resId)
+                        .atPositionOnView(i, R.id.cell_track_container))
+                        .check(matches(isDisplayed()));
+
+                /* checking for the text of the first one item */
+                if(i == LIST_ITEM_IN_TEST) {
+                    onView(new RecyclerViewMatcher(this.resId)
+                            .atPositionOnView(i, R.id.cell_track_artist_name))
+                            .check(matches(withText("Artist Name: "+track.getArtistName())));
+                }
+
+            }
+        }
 
     }
 
@@ -175,9 +199,46 @@ public class DashboardTest {
         }
         return stream;
     }
-    public static RecyclerViewMatcher withRecyclerView(final int recyclerViewId) {
 
-        return new RecyclerViewMatcher(recyclerViewId);
+    private <T extends Activity> T getActivity(ActivityScenarioRule<T> activityScenarioRule) {
+        AtomicReference<T> activityRef = new AtomicReference<>();
+        activityScenarioRule.getScenario().onActivity(activityRef::set);
+        return activityRef.get();
     }
 
+
+    @Test
+    public void RecyclerViewTest() {
+
+        A004_testRecycleViewComponent();
+        /* obtaining the Activity from the ActivityTestRule */
+        this.mActivity = getActivity(rule);
+        /* obtaining handles to the Ui of the Activity */
+        this.mRecyclerView = this.mActivity.findViewById(this.resId);
+        this.itemCount = this.mRecyclerView.getAdapter().getItemCount();
+
+//        Artist Name: Barack Obama
+
+        if(this.itemCount > 0) {
+            for(int i=0; i < this.itemCount; i++) {
+                /* clicking the item */
+                onView(withId(this.resId))
+                        .perform(RecyclerViewActions.actionOnItemAtPosition(i, click()));
+
+                /* check if the ViewHolder is being displayed */
+                onView(new RecyclerViewMatcher(this.resId)
+                        .atPositionOnView(i, R.id.cell_track_container))
+                        .check(matches(isDisplayed()));
+
+                /* checking for the text of the first one item */
+                if(i == LIST_ITEM_IN_TEST) {
+                    onView(new RecyclerViewMatcher(this.resId)
+                            .atPositionOnView(i, R.id.cell_track_artist_name))
+                            .check(matches(withText("Artist Name: The Walking Dead")));
+                }
+
+            }
+        }
+
+    }
 }
