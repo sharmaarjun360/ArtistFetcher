@@ -11,4 +11,6 @@ public class Constants {
     public static final String OUTPUT_DATE_FORMAT = "dd-MMM-yyyy";
     public static final String EMPTY_STATE = "...";
     public static final int DEFAULT_IMAGE_RESOURCE = R.drawable.doggy;
+    public static final String PROD = "prod";
+    public static final String QA = "qa";
 }

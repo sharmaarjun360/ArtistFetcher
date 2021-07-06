@@ -45,8 +45,14 @@ public class TrackCellViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void populateTrackData(Track track) {
+
         artistName.setText("Artist Name: " + track.getArtistName());
+        trackName.setVisibility(View.VISIBLE);
         trackName.setText("Track Name: " + track.getTrackName());
+//        if(track.getTrackName().equals("...")) {
+//            trackName.setText("");
+//            trackName.setVisibility(View.GONE);
+//        }
         trackPrice.setText("Price: $ " + track.getTrackPrice() + "");
         releaseDate.setText("Release Date: " + Utils.getSimpleDate(Constants.INPUT_DATE_FORMAT, Constants.OUTPUT_DATE_FORMAT, track.getReleaseDate()));
         primaryGenreName.setText("Genre: " + track.getPrimaryGenreName());
@@ -54,21 +60,16 @@ public class TrackCellViewHolder extends RecyclerView.ViewHolder {
     }
 
     private void isValid(Track track) {
-
-        track.getClass().getFields();
+        track.getClass().getDeclaredFields()[0].getName();
         for (Field field : track.getClass().getFields()) {
             Object object = new Object();
-
             try {
                 if (field.get(object) == null) {
-
                 }
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
-
         }
-
     }
 
     private void addActions() {

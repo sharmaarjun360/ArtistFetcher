@@ -4,16 +4,13 @@ package com.example.artistfetcher;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
-import android.util.Log;
 import android.view.View;
 
-import com.example.artistfetcher.Adapter.TrackAdapter;
-import com.example.artistfetcher.Adapter.TrackCellViewHolder;
+import com.example.artistfetcher.Constants.Constants;
 import com.example.artistfetcher.Utils.EspressoIdlingResource;
 import com.example.artistfetcher.data.local.MockArtistData;
 import com.example.artistfetcher.data.model.Track;
 import com.example.artistfetcher.test.ArtistRobot;
-import com.example.artistfetcher.test.RecyclerViewInteraction;
 import com.example.artistfetcher.test.RecyclerViewMatcher;
 
 import org.hamcrest.Matcher;
@@ -26,40 +23,35 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
-import javax.security.auth.callback.Callback;
-
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.test.core.app.ActivityScenario;
 import androidx.test.espresso.IdlingRegistry;
-import androidx.test.espresso.IdlingResource;
-import androidx.test.espresso.NoMatchingViewException;
 import androidx.test.espresso.UiController;
 import androidx.test.espresso.ViewAction;
-import androidx.test.espresso.base.IdlingResourceRegistry;
 import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.platform.app.InstrumentationRegistry;
+
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
 import static androidx.test.espresso.matcher.ViewMatchers.Visibility;
-import static androidx.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static androidx.test.espresso.matcher.ViewMatchers.isAssignableFrom;
 import static androidx.test.espresso.matcher.ViewMatchers.isCompletelyDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.isSelected;
 import static androidx.test.espresso.matcher.ViewMatchers.withEffectiveVisibility;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static androidx.test.espresso.contrib.RecyclerViewActions.*;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static com.example.artistfetcher.test.RecyclerViewItemCountAssertion.withItemCount;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.lessThan;
 import static org.hamcrest.Matchers.not;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by arjunsharma on 02,July,2021
@@ -83,8 +75,9 @@ public class DashboardTest {
     public void unregisterIdlingResource() {
         IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countIdlingResource);
     }
-        @Test public void A001_testActivity() {
-        assertEquals("com.example.artistfetcher", appContext.getPackageName());
+
+    @Test public void A001_testActivity() {
+        assertEquals("com.example.artistfetcher"+"."+BuildConfig.FLAVOR, appContext.getPackageName());
         ActivityScenario.launch(Dashboard.class);
     }
 
@@ -100,7 +93,7 @@ public class DashboardTest {
     }
 
     @Test public void A003_testSearchComponent() {
-                onView(withId(R.id.search_view))
+        onView(withId(R.id.search_view))
                 .check(matches(not(doesNotExist())))
                 .check(matches(isCompletelyDisplayed()))
                 .check(matches(not(isSelected())))
@@ -125,13 +118,11 @@ public class DashboardTest {
         onView(withId(resId)).check(withItemCount(greaterThan(0)));
         onView(withId(resId)).check(withItemCount(lessThan(51)));
 
-        //type a
-        //index 02: Barack Obama
-        //index 06: Quentin Tarantino
-
-        /* obtaining the Activity from the ActivityTestRule */
+        //type -> a
+        //index 02: Barack Obama, index 06: Quentin Tarantino and like wise
+        /* obtaining the Activity from the ActivityScenarioRule */
         this.mActivity = getActivity(rule);
-        /* obtaining handles to the Ui of the Activity */
+        /* obtaining handles to the U of the Activity */
         this.mRecyclerView = this.mActivity.findViewById(this.resId);
         this.itemCount = this.mRecyclerView.getAdapter().getItemCount();
 
@@ -146,16 +137,18 @@ public class DashboardTest {
                         .atPositionOnView(i, R.id.cell_track_container))
                         .check(matches(isDisplayed()));
 
-                /* checking for the text of the first one item */
-                if(i == LIST_ITEM_IN_TEST) {
+                if(BuildConfig.FLAVOR.equals(Constants.PROD) ){
+                    //test only one first five
+                    /*Difference at mock data and real data
+                    observed over time hence skipping*/
+                }else {
                     onView(new RecyclerViewMatcher(this.resId)
                             .atPositionOnView(i, R.id.cell_track_artist_name))
-                            .check(matches(withText("Artist Name: "+track.getArtistName())));
+                            .check(matches(withText("Artist Name: " + tracks.get(i).getArtistName())));
                 }
 
             }
         }
-
     }
 
     @Test public void A005_testProgressBarViewComponent() {
@@ -206,39 +199,4 @@ public class DashboardTest {
         return activityRef.get();
     }
 
-
-    @Test
-    public void RecyclerViewTest() {
-
-        A004_testRecycleViewComponent();
-        /* obtaining the Activity from the ActivityTestRule */
-        this.mActivity = getActivity(rule);
-        /* obtaining handles to the Ui of the Activity */
-        this.mRecyclerView = this.mActivity.findViewById(this.resId);
-        this.itemCount = this.mRecyclerView.getAdapter().getItemCount();
-
-//        Artist Name: Barack Obama
-
-        if(this.itemCount > 0) {
-            for(int i=0; i < this.itemCount; i++) {
-                /* clicking the item */
-                onView(withId(this.resId))
-                        .perform(RecyclerViewActions.actionOnItemAtPosition(i, click()));
-
-                /* check if the ViewHolder is being displayed */
-                onView(new RecyclerViewMatcher(this.resId)
-                        .atPositionOnView(i, R.id.cell_track_container))
-                        .check(matches(isDisplayed()));
-
-                /* checking for the text of the first one item */
-                if(i == LIST_ITEM_IN_TEST) {
-                    onView(new RecyclerViewMatcher(this.resId)
-                            .atPositionOnView(i, R.id.cell_track_artist_name))
-                            .check(matches(withText("Artist Name: The Walking Dead")));
-                }
-
-            }
-        }
-
-    }
 }

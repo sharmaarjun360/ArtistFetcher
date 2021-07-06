@@ -1,21 +1,13 @@
 package com.example.artistfetcher.Network;
 
-import android.util.Log;
-
 import com.example.artistfetcher.BuildConfig;
-import com.example.artistfetcher.Utils.Utils;
-import com.example.artistfetcher.data.local.MockResultData;
-import com.example.artistfetcher.data.model.Result;
-import com.google.gson.Gson;
+import com.example.artistfetcher.Constants.Constants;
 
 import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URI;
-import java.util.Arrays;
 
 import okhttp3.Interceptor;
 import okhttp3.MediaType;
@@ -33,7 +25,7 @@ public class FakeInterceptor implements Interceptor {
     @Override
     public Response intercept(Chain chain) throws IOException {
         Response response = null;
-        if(BuildConfig.DEBUG) { //only in DEBUG Mode
+        if(BuildConfig.FLAVOR.equals(Constants.QA)) { //only in QA Mode
             String responseString;
             // Get Request URI.
             final URI uri = chain.request().url().uri();

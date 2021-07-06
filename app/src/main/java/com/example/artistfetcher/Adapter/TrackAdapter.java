@@ -1,26 +1,18 @@
 package com.example.artistfetcher.Adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.example.artistfetcher.Constants.Constants;
 import com.example.artistfetcher.Interface.CallbackTrackAdapter;
 import com.example.artistfetcher.R;
-import com.example.artistfetcher.Utils.Utils;
 import com.example.artistfetcher.data.model.Result;
 import com.example.artistfetcher.data.model.Track;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.lang.reflect.Field;
-
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 /**

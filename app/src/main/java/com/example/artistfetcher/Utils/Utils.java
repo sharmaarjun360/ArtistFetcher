@@ -1,8 +1,6 @@
 package com.example.artistfetcher.Utils;
 
 import android.app.Activity;
-import android.content.res.AssetFileDescriptor;
-import android.content.res.AssetManager;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;

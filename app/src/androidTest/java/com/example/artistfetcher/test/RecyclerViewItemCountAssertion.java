@@ -1,6 +1,9 @@
 package com.example.artistfetcher.test;
+
 import android.view.View;
+
 import org.hamcrest.Matcher;
+
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.test.espresso.NoMatchingViewException;
 import androidx.test.espresso.ViewAssertion;

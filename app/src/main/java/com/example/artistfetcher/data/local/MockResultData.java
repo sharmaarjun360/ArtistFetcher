@@ -1,7 +1,5 @@
 package com.example.artistfetcher.data.local;
 
-import android.content.Context;
-
 import com.example.artistfetcher.data.model.Result;
 import com.example.artistfetcher.data.model.Track;
 import com.google.gson.Gson;

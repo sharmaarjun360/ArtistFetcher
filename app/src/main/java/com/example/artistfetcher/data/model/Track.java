@@ -1,10 +1,6 @@
 package com.example.artistfetcher.data.model;
 
 import com.example.artistfetcher.Constants.Constants;
-import com.google.gson.Gson;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import okhttp3.internal.http.HttpHeaders;
 
 /**
  * Created by arjunsharma on 01,July,2021
@@ -37,7 +33,7 @@ public class Track {
     }
 
     public double getTrackPrice() {
-        return trackPrice;
+        return trackPrice < 0 ?0:trackPrice;
     }
 
     public String getReleaseDate() {

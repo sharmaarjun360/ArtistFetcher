@@ -1,6 +1,5 @@
 package com.example.artistfetcher.test;
 
-import com.example.artistfetcher.R;
 import androidx.annotation.IdRes;
 import androidx.test.espresso.matcher.ViewMatchers;
 

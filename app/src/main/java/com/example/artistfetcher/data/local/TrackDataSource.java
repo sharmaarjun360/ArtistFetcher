@@ -1,6 +1,5 @@
 package com.example.artistfetcher.data.local;
 
-import com.example.artistfetcher.data.model.Result;
 import com.example.artistfetcher.data.model.Track;
 
 import java.io.InputStream;
