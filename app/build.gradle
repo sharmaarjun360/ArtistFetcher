@@ -1,5 +1,6 @@
 plugins {
     id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
 }
 
 android {
@@ -17,11 +18,14 @@ android {
     defaultConfig {
         applicationId "com.example.artistfetcher"
         minSdkVersion 23
-        targetSdk 34
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables {
+            useSupportLibrary true
+        }
     }
 
     buildTypes {
@@ -50,6 +54,20 @@ android {
         targetCompatibility JavaVersion.VERSION_17
     }
     namespace 'com.example.artistfetcher'
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+    buildFeatures {
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion '1.5.1'
+    }
+    packaging {
+        resources {
+            excludes += '/META-INF/{AL2.0,LGPL2.1}'
+        }
+    }
 
 }
 
@@ -60,6 +78,14 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'org.jetbrains:annotations:24.1.0'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.7.0'
+    implementation 'androidx.activity:activity-compose:1.8.2'
+    implementation platform('androidx.compose:compose-bom:2023.08.00')
+    implementation 'androidx.compose.ui:ui'
+    implementation 'androidx.compose.ui:ui-graphics'
+    implementation 'androidx.compose.ui:ui-tooling-preview'
+    implementation 'androidx.compose.material3:material3'
+    implementation platform('androidx.compose:compose-bom:2023.08.00')
     //for Unit Testing
     testImplementation 'junit:junit:4.13.2'
 //    testImplementation 'org.robolectric:robolectric:4.4'
@@ -81,7 +107,12 @@ dependencies {
 //    implementation "androidx.recyclerview:recyclerview-selection:1.1.0-rc01"
     //for image
     implementation 'com.github.bumptech.glide:glide:4.16.0'
+    androidTestImplementation platform('androidx.compose:compose-bom:2023.08.00')
+    androidTestImplementation 'androidx.compose.ui:ui-test-junit4'
+    androidTestImplementation platform('androidx.compose:compose-bom:2023.08.00')
     annotationProcessor 'com.github.bumptech.glide:compiler:4.16.0'
+    debugImplementation 'androidx.compose.ui:ui-tooling'
+    debugImplementation 'androidx.compose.ui:ui-test-manifest'
     //For firebase analytics
     // add the Firebase SDK for Google Analytics
 //    implementation 'com.google.firebase:firebase-analytics:17.2.2'

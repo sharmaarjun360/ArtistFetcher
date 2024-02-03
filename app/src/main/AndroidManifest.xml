@@ -8,17 +8,28 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ArtistFetcher">
-        <activity android:name=".Dashboard"
+        <activity
+            android:name=".JetDetails"
+            android:exported="false"
+            android:label="@string/title_activity_jet_details"
+            android:theme="@style/Theme.ArtistFetcher" />
+        <activity
+            android:name=".JetCompose"
             android:exported="true"
-            >
-
+            android:label="@string/title_activity_jet_compose"
+            android:theme="@style/Theme.ArtistFetcher" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".Dashboard"
+            android:exported="false">
+        </activity>
     </application>
+
     <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 
@@ -35,6 +36,7 @@ public class Dashboard extends AppCompatActivity implements CallbackTrackAdapter
     private SearchView searchView; //we want only one
     private TrackAdapter trackAdapter;
     private RecyclerView recyclerViewListTrack;
+    private Button buttonJet;
     private Handler mHandler = new Handler(Looper.getMainLooper());
     private FrameLayout fragmentArtistDetailsContainer;
     private FragmentArtistDetails fragmentArtistDetails;
@@ -76,6 +78,7 @@ public class Dashboard extends AppCompatActivity implements CallbackTrackAdapter
         progressBar = findViewById(R.id.progressBar);
         searchView = findViewById(R.id.search_view);
         recyclerViewListTrack = findViewById(R.id.recycle_view_list_track);
+        buttonJet = findViewById(R.id.btn_jet);
         //todo: when want to update for iPAD etc
         if (findViewById(R.id.fragmentContainer) != null) {
             mTwoPane = true;
