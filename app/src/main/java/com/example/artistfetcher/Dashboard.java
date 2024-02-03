@@ -110,6 +110,7 @@ public class Dashboard extends AppCompatActivity implements CallbackTrackAdapter
                     response.message();
                 }
                 if(response.body() != null){
+                    //sort here by release date
                     refreshAdapter((Result) response.body());
                 }
             }

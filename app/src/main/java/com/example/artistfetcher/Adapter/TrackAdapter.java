@@ -5,12 +5,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.artistfetcher.Constants.Constants;
 import com.example.artistfetcher.Interface.CallbackTrackAdapter;
 import com.example.artistfetcher.R;
+import com.example.artistfetcher.Utils.Utils;
 import com.example.artistfetcher.data.model.Result;
 import com.example.artistfetcher.data.model.Track;
 
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -54,6 +60,18 @@ public class TrackAdapter extends RecyclerView.Adapter<TrackCellViewHolder>{
     @Override
     public void onBindViewHolder(@NonNull @NotNull TrackCellViewHolder holder, int position) {
         if (result==null || result.getResultCount()==0) return;
+
+
+        Comparator <Track>comparator = new Comparator<Track>() {
+            @Override
+            public int compare(Track a, Track b) {
+                return Long.compare(
+                        Utils.getDateInMilli(Constants.INPUT_DATE_FORMAT,a.getReleaseDate()),
+                        Utils.getDateInMilli(Constants.INPUT_DATE_FORMAT,b.getReleaseDate()));
+            }
+        };
+        Collections.sort(result.getResults(),comparator);
+
         if (result.getResults() == null || result.getResults().size()==0) return;
         currentTrackDetails = result.getResults().get(position);
         holder.context = context;

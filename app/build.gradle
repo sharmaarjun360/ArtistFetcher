@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    compileSdkVersion 30
+    compileSdk 34
 
     repositories {
         google()
@@ -17,7 +17,7 @@ android {
     defaultConfig {
         applicationId "com.example.artistfetcher"
         minSdkVersion 23
-        targetSdkVersion 30
+        targetSdk 34
         versionCode 1
         versionName "1.0"
 
@@ -46,41 +46,42 @@ android {
 
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
+    namespace 'com.example.artistfetcher'
 
 }
 
 dependencies {
 
-    implementation 'androidx.appcompat:appcompat:1.3.0'
-    implementation 'com.google.android.material:material:1.2.1'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.11.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'org.jetbrains:annotations:15.0'
+    implementation 'org.jetbrains:annotations:24.1.0'
     //for Unit Testing
-    testImplementation 'junit:junit:4.+'
-    testImplementation 'org.robolectric:robolectric:4.4'
+    testImplementation 'junit:junit:4.13.2'
+//    testImplementation 'org.robolectric:robolectric:4.4'
     //for Instrumentation Testing
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.1.0'
-    implementation 'androidx.test.espresso.idling:idling-concurrent:3.1.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.5.1'
+    implementation 'androidx.test.espresso.idling:idling-concurrent:3.5.1'
 
 
     //for parsing
-    implementation 'com.google.code.gson:gson:2.8.7'
+    implementation 'com.google.code.gson:gson:2.10.1'
     //for network retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     //for recycle view
-    implementation "androidx.recyclerview:recyclerview:1.1.0"
+    implementation 'androidx.recyclerview:recyclerview:1.3.2'
     // For control over item selection of both touch and mouse driven selection
 //    implementation "androidx.recyclerview:recyclerview-selection:1.1.0-rc01"
     //for image
-    implementation 'com.github.bumptech.glide:glide:4.12.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
+    implementation 'com.github.bumptech.glide:glide:4.16.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.16.0'
     //For firebase analytics
     // add the Firebase SDK for Google Analytics
 //    implementation 'com.google.firebase:firebase-analytics:17.2.2'

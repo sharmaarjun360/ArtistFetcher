@@ -41,8 +41,17 @@ public class Utils {
             e.printStackTrace();
         }
         return str;
-
-
     }
-
+    public static long getDateInMilli(String inputDateFormat, String inputDate){
+        SimpleDateFormat inputFormat = new SimpleDateFormat(inputDateFormat);
+        Date date = null;
+        long res = 0;
+        try {
+            date = inputFormat.parse(inputDate);
+            res = date.getTime();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return res;
+    }
 }
