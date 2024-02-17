@@ -9,6 +9,50 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ArtistFetcher">
         <activity
+            android:name=".JetBusinessCard"
+            android:exported="true"
+            android:label="@string/title_activity_jet_business_card"
+            android:theme="@style/Theme.ArtistFetcher">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".JetComposeQuadrant"
+            android:exported="true"
+            android:label="@string/title_activity_jet_compose_quadrant"
+            android:theme="@style/Theme.ArtistFetcher">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".JetTaskManager"
+            android:exported="true"
+            android:label="@string/title_activity_jet_task_manager"
+            android:theme="@style/Theme.ArtistFetcher">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".JetBasics"
+            android:exported="true"
+            android:label="@string/title_activity_jet_basics"
+            android:theme="@style/Theme.ArtistFetcher">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".JetDetails"
             android:exported="false"
             android:label="@string/title_activity_jet_details"
@@ -17,7 +61,7 @@
             android:name=".JetCompose"
             android:exported="true"
             android:label="@string/title_activity_jet_compose"
-            android:theme="@style/Theme.ArtistFetcher" >
+            android:theme="@style/Theme.ArtistFetcher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,8 +70,7 @@
         </activity>
         <activity
             android:name=".Dashboard"
-            android:exported="false">
-        </activity>
+            android:exported="false" />
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />
