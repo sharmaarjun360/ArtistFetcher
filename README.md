@@ -2,7 +2,7 @@
 Application to fetch Artist data from iTunes. This application fetches and displays Artist data from the following iTunes URL:
 https://itunes.apple.com/search?term={any ArtistName}
 
-Check out executed UI tests here: https://github.com/sharmaarjun360/ArtistFetcher.wiki.git
+Check out executed UI tests here: https://github.com/sharmaarjun360/ArtistFetcher/wiki
 
 The key purpose of the application is to showcase Integration testing and Unit testing capabilities.
 
